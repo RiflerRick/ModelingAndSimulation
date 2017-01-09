@@ -1,0 +1,51 @@
+---
+title: "Dice Experiment A"
+author: "Rajdeep Mukherjee"
+date: "29th August 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# The above statements already comes while creating an Rmd document.
+```
+
+## PROBLEM STATEMENT
+## Write a sample function to generate the output for one roll of a biased dice and display its sum and output graph.
+
+code: sample(x = die, size = 2, replace = TRUE)
+
+## CODE:
+````{r}
+#in Rmd when we find ```{r} ``` this means that whats inside that block is R code
+
+
+roll_dice_biased<- function() {
+die <- 1:6
+dice <- sample(die, size = 2, replace = TRUE, prob = c(1/8, 3/8, 1/8, 1/8, 1/8, 1/8))
+#sample() function is used to create unbiased samples of of a vector
+#The syntax of the sample function is as follows:
+# sample(<vector or range(which is also a vector)>,<size of the output>,<replace>,<prob>)
+
+#size: the size should not be greater than the vector length if replace is false
+#replace: if true there can be repetitions
+#prob: vector that defines the probability of occurence of each element of the vector
+sum(dice)
+}
+#above given is the technique to write a function in R
+
+roll1<- replicate(500, roll_dice_biased())
+#replicate function is used for the purpose of replicating a function or any line of code multiple times
+
+#The syntax of the funtion is as follows:
+#replicate(<no of times to repeat>,<function to repeat or the code to repeat>)
+
+#to know how to install packages check out the r pdf(oreilly) page 23
+
+library(ggplot2)
+
+#the library function is used to add and attach add-on packages
+#for using ggplot2 we need to install it using install.packages("ggplot2") and use it using library("ggplot2")
+
+qplot(roll1, binwidth = 1)
+````{r}
